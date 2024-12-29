@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api.service';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -10,14 +11,20 @@ export class HomeComponent implements OnInit {
   users: any = [];
   test:any;
   selectedFile: any;
+  page: number = 1;
   constructor(private api: ApiService){}
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.api.get('user').subscribe({
-      next: (data) => {
+    let params = new HttpParams()
+    .set('page', '1')
+    .set('per_page', '1');
+
+    this.api.get('test', params ).subscribe({
+      next: (data:any) => {
+
         console.log('data: ', data);
-        this.users = data
+        this.users = data.user.data
       },
       error: (err) => {
         console.log('err: ', err);
@@ -35,33 +42,23 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  nextfun(){
+    this.page += 1;
+    let params = new HttpParams()
+    .set('page', this.page.toString())
+    .set('per_page', '1');
 
+    this.api.get('test', params ).subscribe({
+      next: (data:any) => {
 
-
-
-  //eexample of file upload
-  onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
-    if (this.selectedFile) {
-        this.uploadFile(this.selectedFile);
-        console.log('this.selectedFile: ', this.selectedFile);
-    }
-}
-
-uploadFile(file: File) {
-    const formData = new FormData();
-    formData.append('file', file, file.name);  // Ensure 'file' is the key used here
-
-    this.api.post('test', formData).subscribe({
-        next: (data: any) => {
-            console.log('data: ', data);
-            this.test = data.file_url
-            // this.test = JSON.stringify(data);
-        },
-        error: (err) => {
-            console.log('err: ', err);
-        }
-    });
-}
+        console.log('data: ', data);
+        this.users = data.user.data
+      },
+      error: (err) => {
+        console.log('err: ', err);
+        
+      }
+    })
+  }
 
 }
