@@ -1,3 +1,43 @@
-<div class="bg-gray-300 w-screen h-screen">
-    <app-sidebar></app-sidebar>
+<div class="flex flex-row justify-start w-screen">
+    <div class="bg-gray-300 h-screen" style="width: 30vh;">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="overflow-x-auto bg-gray-300">
+        <table class="min-w-full bg-white border border-gray-200">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border-b">ID</th>
+              <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border-b">Name</th>
+              <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border-b">Email</th>
+              <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border-b">Password</th>
+              <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border-b">Created At</th>
+              <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border-b">Updated At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users" class="hover:bg-gray-50">
+              <td class="px-6 py-4 text-sm text-gray-800 border-b">{{ user.id }}</td>
+              <td class="px-6 py-4 text-sm text-gray-800 border-b">{{ user.name }}</td>
+              <td class="px-6 py-4 text-sm text-gray-800 border-b">{{ user.email }}</td>
+              <td class="px-6 py-4 text-sm text-gray-800 border-b">{{ user.password }}</td>
+              <td class="px-6 py-4 text-sm text-gray-800 border-b">{{ user.created_at | date: 'short' }}</td>
+              <td class="px-6 py-4 text-sm text-gray-800 border-b">{{ user.updated_at | date: 'short' }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+            {{test}}
+        </p>
+
+
+        <!-- //example of file upload -->
+        <div>
+            <input type="file" (change)="onFileSelected($event)" />
+        </div>
+        <div>
+            <img [src]="test" alt="">
+        </div>
+
+      </div>
 </div>

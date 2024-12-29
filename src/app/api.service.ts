@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ApiService {
   // Default headers
   private defaultHeaders = new HttpHeaders({
-    'Content-Type': 'application/json',
+    // 'Content-Type': 'application/json',
     'Accept': 'application/json',
     'Access-Control-Allow-Origin': '*'
   });
